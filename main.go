@@ -3,6 +3,7 @@ package main
 import (
   "fmt"
   "log"
+  "strings"
   "net/http"
 )
 
@@ -15,8 +16,13 @@ func handleFormSubmit(w http.ResponseWriter, r *http.Request){
   fmt.Fprintf(w, "Post successful")
   name := r.FormValue("name")
   age := r.FormValue("age")
-  fmt.Fprintf(w, "Your name submitted as %s \n", name)
-  fmt.Fprintf(w, "Your age submitted as %d", age)
+  
+  if len(name) > 0 && (age > 0 && age <= 100) {
+    fmt.Fprintf(w, "Your name submitted as %s \n", name)
+    fmt.Fprintf(w, "Your age submitted as %d", age)
+  } else {
+    fmt.Fprintf(w, "No name/data Provided")
+  }
 }
 
 func main() {  
